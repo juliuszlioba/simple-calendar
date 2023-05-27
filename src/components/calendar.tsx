@@ -20,20 +20,27 @@ export default function CustomCalendar() {
 
   const getHeader = () => {
     return (
-      <div className="col-span-7 flex justify-between">
+      <div className="cap-2 col-span-7 flex items-center justify-between rounded-lg border-2 border-gray-700 p-2 pb-2">
         <h2>{format(activeDate, "LLLL", { locale: lt })}</h2>
-        <div>
+        <div className="flex items-center gap-2">
           <button
             onClick={() => {
               setActiveDate(new Date())
             }}
+            className="hover:text-fuchsia-800"
           >
             Today
           </button>
-          <button onClick={() => setActiveDate(subMonths(activeDate, 1))}>
+          <button
+            onClick={() => setActiveDate(subMonths(activeDate, 1))}
+            className="hover:text-fuchsia-800"
+          >
             <ChevronLeftIcon className="h-6 w-6" />
           </button>
-          <button onClick={() => setActiveDate(addMonths(activeDate, 1))}>
+          <button
+            onClick={() => setActiveDate(addMonths(activeDate, 1))}
+            className="hover:text-fuchsia-800"
+          >
             <ChevronRightIcon className="h-6 w-6" />
           </button>
         </div>
@@ -46,7 +53,7 @@ export default function CustomCalendar() {
     const weekDays = []
     for (let day = 0; day < 7; day++) {
       weekDays.push(
-        <div key={`week-${day}`}>
+        <div key={`week-${day}`} className=" p-1 text-center">
           {format(addDays(weekStartDate, day), "E", { locale: lt })}
         </div>
       )
@@ -61,7 +68,7 @@ export default function CustomCalendar() {
       week.push(
         <div
           key={format(currentDate, "T")}
-          className={`day ${
+          className={`day rounded-lg border-2 border-gray-700 p-1 ${
             isSameMonth(currentDate, activeDate) ? "" : "text-gray-500"
           }
           ${isSameDay(currentDate, new Date()) ? "bg-white text-black" : ""}`}
@@ -72,7 +79,7 @@ export default function CustomCalendar() {
       currentDate = addDays(currentDate, 1)
     }
     return (
-      <div key={format(currentDate, "w")} className="grid grid-cols-7">
+      <div key={format(currentDate, "w")} className="grid grid-cols-7 gap-2">
         {week}
       </div>
     )
@@ -93,11 +100,11 @@ export default function CustomCalendar() {
       currentDate = addDays(currentDate, 7)
     }
 
-    return <div>{allWeeks}</div>
+    return <div className="grid gap-2">{allWeeks}</div>
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-2">
       {getHeader()}
       {getWeekDaysNames()} {getDates()}
     </div>
